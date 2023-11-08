@@ -9,8 +9,8 @@ import (
     "log"
 )
 
-func Hello(message string) {
-    fmt.Println(message)
+func Hello(message string) string {
+    return message
 }
 
 func readFile(path string) string {
