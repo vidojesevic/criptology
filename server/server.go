@@ -13,7 +13,7 @@ func Hello(message string) string {
     return message
 }
 
-func readFile(path string) string {
+func ReadFile(path string) string {
     body, err := os.ReadFile(path)
     if err != nil {
         log.Fatalf("Unable to read file: %v", err)
@@ -39,7 +39,7 @@ func GetDataFromApi(url string) []uint8 {
 }
 
 func Server() {
-    head := readFile("html/head.html")
+    head := ReadFile("html/head.html")
     data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
     http.HandleFunc("/cryptology", func(w http.ResponseWriter, r *http.Request) {
         w.Write([]byte(head))
