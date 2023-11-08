@@ -6,6 +6,7 @@ COPY go.mod .
 COPY main.go .
 COPY server/server.go ./server/
 COPY html/head.html ./html/
+COPY html/footer.html ./html/
 
 RUN go build -o bin .
 

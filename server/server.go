@@ -1,12 +1,10 @@
 package server
 
 import (
-    "fmt"
-    "net/http"
-    "os"
-    "io"
-    // "html"
-    "log"
+	"io"
+	"log"
+	"net/http"
+	"os"
 )
 
 func Hello(message string) string {
@@ -33,25 +31,48 @@ func GetDataFromApi(url string) []uint8 {
     if err != nil {
         log.Fatalf("Unable to read response data: %v", err)
     }
-    // fmt.Println(string(respData))
-    fmt.Printf("Type of response data is %T\n", respData)
+    // fmt.Printf("Type of response data is %T\n", respData)
     return respData
+}
+
+func ServeCriprologyStr(w http.ResponseWriter, data string) {
+    // w.Write returns (int, error)
+    if data == "" {
+        log.Print("Passing empty string!")
+    }
+
+    _, err := w.Write([]byte(data))
+    if err != nil {
+        log.Fatalf("Cannot write data to connection: %v", err)
+    }
+}
+
+func ServeCriprologyUint(w http.ResponseWriter, data []uint8) {
+    // w.Write returns (int, error)
+    if data == nil {
+        log.Print("Error: Cannot pass nil value!")
+    }
+
+    _, err := w.Write([]byte(data))
+    if err != nil {
+        log.Fatalf("Cannot write data to connection: %v", err)
+    }
 }
 
 func Server() {
     head := ReadFile("html/head.html")
+    footer := ReadFile("html/footer.html")
     data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
-    http.HandleFunc("/cryptology", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte(head))
-        w.Write([]byte("<h1 class='text-center'>Welcome to Cryptology!</h1>"))
-        w.Write([]byte(data))
-    })
-    http.ListenAndServe(":9000", nil)
 
-    //
-    // http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
-    //     fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
-    // })
-    //
-    // log.Fatal(http.ListenAndServe(":9000", nil))
+    http.HandleFunc("/cryptology", func(w http.ResponseWriter, r *http.Request) {
+        ServeCriprologyStr(w, head)
+        ServeCriprologyStr(w, "")
+        ServeCriprologyStr(w, "<h1 class='text-center pt-3 pb-3'>Welcome to Cryptology</h1>")
+        ServeCriprologyUint(w, data)
+        ServeCriprologyStr(w, footer)
+    })
+    err := http.ListenAndServe(":9000", nil)
+    if err != nil {
+        log.Fatal(http.ListenAndServe(":9000", nil))
+    }
 }
