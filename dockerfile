@@ -5,8 +5,9 @@ WORKDIR /app
 COPY go.mod .
 COPY main.go .
 COPY server/server.go ./server/
-COPY html/head.html ./html/
-COPY html/footer.html ./html/
+COPY server/log/ ./server/log/
+COPY web/views/head.html ./web/views/
+COPY web/views/footer.html ./web/views/
 
 RUN go build -o bin .
 
