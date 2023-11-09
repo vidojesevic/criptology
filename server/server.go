@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-    // "sync"
+    "criptology/parser"
 )
 
 // var logMutex sync.Mutex
@@ -55,11 +55,14 @@ func ServeCriprologyUint(w http.ResponseWriter, data []uint8) {
     if isDataNil {
         WriteErrorLogFile("Cannot pass nil value!")
     }
+    encoded := parser.ParseJsonFromAlpha(data)
 
-    // w.Write returns (int, error)
-    _, err := w.Write([]byte(data))
-    if err != nil {
-        log.Fatalf("Cannot write data to connection: %v", err)
+    // fix tomorrow
+    for _, item := range encoded[0] {
+        _, err := w.Write([]byte(item))
+        if err != nil {
+            log.Fatalf("Cannot write data to connection: %v", err)
+        }
     }
 }
 
@@ -108,6 +111,7 @@ func OpenLogFile(path string) (*os.File, error) {
 func Server() {
     head := ReadFile("web/views/head.html")
     footer := ReadFile("web/views/footer.html")
+    // data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
     data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
 
     http.HandleFunc("/cryptology", func(w http.ResponseWriter, r *http.Request) {
