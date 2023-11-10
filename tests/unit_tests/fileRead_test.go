@@ -3,7 +3,7 @@ package server
 import (
     "testing"
     "os"
-    "criptology/server"
+    "cryptology/server"
 )
 
 func TestReadFile(t *testing.T) {

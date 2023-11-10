@@ -2,7 +2,7 @@ package server
 
 import (
     "testing"
-    "criptology/server"
+    "cryptology/server"
 )
 
 func TestHello(t *testing.T) {

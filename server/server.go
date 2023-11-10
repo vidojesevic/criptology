@@ -5,10 +5,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-    "criptology/parser"
+    "cryptology/logger"
+    "cryptology/datautil"
 )
-
-// var logMutex sync.Mutex
 
 func Hello(message string) string {
     return message
@@ -27,7 +26,8 @@ func GetDataFromApi(url string) []uint8 {
     resp, err := http.Get(url)
 
     if err != nil {
-        log.Fatalf("Unable to get data ftom source: %v", err)
+        message := `"Unable to get data from source: %v", err`
+        logger.WriteErrorLogFile(message)
     }
 
     respData, err := io.ReadAll(resp.Body)
@@ -41,7 +41,7 @@ func GetDataFromApi(url string) []uint8 {
 func ServeCriprologyStr(w http.ResponseWriter, data string) {
     isDataEmpty := data == ""
     if isDataEmpty {
-        WriteErrorLogFile("Passing empty string!")
+        logger.WriteErrorLogFile("Passing empty string!")
     }
 
     _, err := w.Write([]byte(data))
@@ -53,75 +53,38 @@ func ServeCriprologyStr(w http.ResponseWriter, data string) {
 func ServeCriprologyUint(w http.ResponseWriter, data []uint8) {
     isDataNil := data == nil
     if isDataNil {
-        WriteErrorLogFile("Cannot pass nil value!")
+        logger.WriteErrorLogFile("Cannot pass nil value!")
     }
-    encoded := parser.ParseJsonFromAlpha(data)
+    encoded := datautil.ParseJsonFromAlpha(data)
+    log.Printf("Data type: %T\n", encoded)
 
     // fix tomorrow
-    for _, item := range encoded[0] {
-        _, err := w.Write([]byte(item))
+    // for _, item := range encoded[0] {
+        // _, err := w.Write([]byte(item))
+        _, err := w.Write([]byte(data))
         if err != nil {
             log.Fatalf("Cannot write data to connection: %v", err)
         }
-    }
-}
-
-func WriteAccessLogFile(message string) {
-    logPath := "server/log/access.log"
-
-    logFile, err := OpenLogFile(logPath)
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer logFile.Close()
-
-    logger := log.New(logFile, "[Access]", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
-    logger.Println(message)
-}
-
-func WriteErrorLogFile(message string) {
-    logPath := "server/log/error.log"
-
-    logFile, err := OpenLogFile(logPath)
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer logFile.Close()
-
-    logger := log.New(logFile, "[Error]", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
-    logger.Println(message)
-}
-
-func OpenLogFile(path string) (*os.File, error) {
-    if _, err := os.Stat(path); os.IsNotExist(err) {
-        logFile, err := os.Create(path)
-        if err != nil {
-            return nil, err
-        }
-        return logFile, nil
-    }
-
-    logFile, err := os.OpenFile(path, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
-    if err != nil {
-        return nil, err
-    }
-    return logFile, nil
+    // }
 }
 
 func Server() {
+    port := ":9000"
     head := ReadFile("web/views/head.html")
     footer := ReadFile("web/views/footer.html")
     // data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
     data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
+    // wiki := GetDataFromApi("https://en.wikipedia.org/w/api.php?action=parse&page=Bitcoin&format=json")
 
     http.HandleFunc("/cryptology", func(w http.ResponseWriter, r *http.Request) {
         ServeCriprologyStr(w, head)
         ServeCriprologyStr(w, "<h1 class='text-center pt-3 pb-3'>Welcome to Cryptology</h1>")
         ServeCriprologyUint(w, data)
+        // ServeCriprologyUint(w, wiki)
         ServeCriprologyStr(w, footer)
     })
-    err := http.ListenAndServe(":9000", nil)
+    err := http.ListenAndServe(port, nil)
     if err != nil {
-        log.Fatal(http.ListenAndServe(":9000", nil))
+        log.Fatal(http.ListenAndServe(port, nil))
     }
 }

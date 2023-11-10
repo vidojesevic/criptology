@@ -2,16 +2,19 @@ package main
 
 import (
     "fmt"
-    "criptology/server"
+    "cryptology/server"
+    "cryptology/logger"
+    "cryptology/datautil"
 )
 
 func main() {
-    fmt.Println("Hello, World!")
 
-    fmt.Print(server.Hello("Hello from server\n"))
+    fmt.Print(server.Hello("Server successfylly started\n"))
+    port := datautil.GetConfig("port")
+    fmt.Printf("Listening port: %v\n", port)
 
     // data := server.GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
-    server.WriteAccessLogFile("Server succesfully started")
+    logger.WriteAccessLogFile("Server succesfully started")
 
     server.Server()
 }
