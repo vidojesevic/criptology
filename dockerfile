@@ -5,8 +5,9 @@ WORKDIR /app
 COPY go.mod .
 COPY main.go .
 COPY server/server.go ./server/
-COPY parser/parser.go ./parser/
-COPY server/log/ ./server/log/
+COPY datautil/* ./datautil/
+COPY config/config.json ./config/
+COPY logger/ ./logger/
 COPY web/views/head.html ./web/views/
 COPY web/views/footer.html ./web/views/
 
