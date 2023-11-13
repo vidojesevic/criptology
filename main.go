@@ -9,7 +9,8 @@ import (
 
 func main() {
 
-    fmt.Print(server.Hello("Server successfylly started\n"))
+    mes := fmt.Sprintf("%v succedully started!\n", datautil.GetConfig("app"))
+    fmt.Print(server.Hello(mes))
     port := datautil.GetConfig("port")
     fmt.Printf("Listening port: %s\n", port)
 
