@@ -15,7 +15,7 @@ func WriteErrorLogFile(message string) {
     }
     defer logFile.Close()
 
-    logger := log.New(logFile, "[Error]", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
+    logger := log.New(logFile, "[Error] ", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
     if strings.Contains(message, "%v") {
         logger.Printf(message)
     } else {
@@ -32,7 +32,7 @@ func WriteAccessLogFile(message string) {
     }
     defer logFile.Close()
 
-    logger := log.New(logFile, "[Access]", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
+    logger := log.New(logFile, "[Access] ", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
     logger.Println(message)
 }
 

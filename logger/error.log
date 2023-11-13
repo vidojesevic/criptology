@@ -1,0 +1,7 @@
+[Error] 2023/11/13 23:42:14.636651 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/13 23:43:10.016935 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/13 23:43:24.952920 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/13 23:48:45.718199 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/13 23:49:08.913123 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/13 23:49:58.804098 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/13 23:51:20.638416 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
