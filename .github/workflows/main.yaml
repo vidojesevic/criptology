@@ -18,6 +18,12 @@ jobs:
         with:
           go-version: 1.21.3
 
+      - name: Install flyctl
+        run: |
+          curl -L https://fly.io/install.sh | sh
+          export FLYCTL_INSTALL="/home/runner/.fly"
+          export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
       - name: Run Tests
         run: go test -v ./...
 
@@ -30,9 +36,7 @@ jobs:
 
       - name: Set up Fly CLI
         run: |
-          curl -L https://fly.io/install.sh | sh
-          sudo mv flyctl /usr/local/bin/flyctl
           flyctl version
 
       - name: Deploy to Fly
-        run: flyctl deploy -i flyio/criptology
+        run: flyctl deploy -i fly.io/criptology
