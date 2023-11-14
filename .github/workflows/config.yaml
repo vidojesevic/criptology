@@ -37,9 +37,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Fly CLI
+      - name: Setup Fly.io config
         uses: superfly/flyctl-actions/setup-flyctl@master
-        run: flyctl deploy --remote-only
-      #
+
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only --no-cache
       # - name: Deploy to Fly
       #   run: flyctl deploy -i fly.io/criptology
