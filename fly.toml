@@ -6,4 +6,5 @@ app = "criptology"
 [services]
   [[services.ports]]
     handlers = ["http"]
+    port = 9000
     internal_port = 9000
