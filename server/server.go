@@ -34,7 +34,6 @@ func GetDataFromApi(url string) []uint8 {
     if err != nil {
         log.Fatalf("Unable to read response data: %v", err)
     }
-    // fmt.Printf("Type of response data is %T\n", respData)
     return respData
 }
 
@@ -55,8 +54,6 @@ func ServeCriprologyUint(w http.ResponseWriter, data []uint8) {
     if isDataNil {
         logger.WriteErrorLogFile("Cannot pass nil value!")
     }
-    encoded := datautil.ParseJsonFromAlpha(data)
-    log.Printf("Data type: %T\n", encoded)
 
     // fix tomorrow
     // for _, item := range encoded[0] {
@@ -69,10 +66,9 @@ func ServeCriprologyUint(w http.ResponseWriter, data []uint8) {
 }
 
 func Server() {
-    port := ":9000"
+    port := datautil.GetConfig("port")
     head := ReadFile("web/views/head.html")
     footer := ReadFile("web/views/footer.html")
-    // data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
     data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
     // wiki := GetDataFromApi("https://en.wikipedia.org/w/api.php?action=parse&page=Bitcoin&format=json")
 
@@ -80,6 +76,7 @@ func Server() {
         ServeCriprologyStr(w, head)
         ServeCriprologyStr(w, "<h1 class='text-center pt-3 pb-3'>Welcome to Cryptology</h1>")
         ServeCriprologyUint(w, data)
+        ServeCriprologyUint(w, nil)
         // ServeCriprologyUint(w, wiki)
         ServeCriprologyStr(w, footer)
     })

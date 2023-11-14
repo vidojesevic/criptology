@@ -6,3 +6,74 @@
 [Error] 2023/11/13 23:49:58.804098 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
 [Error] 2023/11/13 23:51:20.638416 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
 [Error] 2023/11/13 23:58:43.650463 logger.go:22: Cannot Unmarshal json: invalid character '}' looking for beginning of object key string
+[Error] 2023/11/14 12:18:59.421683 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:18:59.421822 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:18:59.421936 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:19:31.246491 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:19:31.246653 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:19:31.246758 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:20:15.671595 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:20:15.671711 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:20:15.671819 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:20:57.988666 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:20:57.988783 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+[Error] 2023/11/14 12:20:57.988886 logger.go:22: Cannot Unmarshal json: invalid character ']' looking for beginning of value
+2023/11/14 13:22:36.238388 logger.go:26: [2023-11-14 13:1122:36] [Error] Cannot pass nil value!
+2023/11/14 13:22:37.235855 logger.go:26: [2023-11-14 13:1122:37] [Error] Cannot pass nil value!
+2023/11/14 13:23:32.662890 logger.go:26: [2023-11-14 13:1123:32] [Error] Passing empty string!
+[Error] 2023/11/14 13:53:32.012451 logger.go:23: Cannot pass nil value!
+[Error] 2023/11/14 14:07:51.495634 logger.go:23: Cannot pass nil value!
+[Error] 2023/11/14 14:07:51.727279 logger.go:23: Cannot pass nil value!
+[Error] 2023/11/14 14:25:03.500907 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:25:03.501070 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:25:03.501156 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:25:43.962498 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:25:43.962618 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:25:43.962658 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:26:43.910553 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:26:43.910670 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:26:43.910725 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:27:10.560440 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:27:10.560600 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:27:10.560660 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:30:57.938497 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:30:57.938619 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:30:57.938685 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:31:07.532145 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:31:07.532266 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:31:07.532317 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:32:36.184445 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:32:36.184651 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:32:36.184740 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:33:05.396996 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:33:05.397131 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:33:05.397194 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:34:10.737130 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:34:10.737346 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:34:10.737385 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:38:05.107062 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:38:05.107254 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:38:05.107335 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:38:25.506296 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:38:25.506407 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:38:25.506445 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:43:42.999666 logger.go:23: This is a test error message.
+[Error] 2023/11/14 14:43:42.999818 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:43:59.545715 logger.go:23: This is a test error message.
+[Error] 2023/11/14 14:43:59.545855 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:44:44.503563 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:44:44.503755 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:44:44.503835 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:45:12.956337 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:45:12.956471 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:45:12.956531 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:46:02.106502 logger.go:23: Cannot pass nil value!
+[Error] 2023/11/14 14:50:04.276568 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:50:04.276794 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:50:04.276910 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:50:56.665138 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:50:56.665268 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:50:56.665307 logger.go:23: Cannot open json file: open config/config.json: no such file or directory
+[Error] 2023/11/14 14:51:45.817921 logger.go:23: Passing invalid config name
+[Error] 2023/11/14 14:52:05.776730 logger.go:23: Passing invalid config name
+[Error] 2023/11/14 14:52:19.236599 logger.go:23: Passing invalid config name
