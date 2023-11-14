@@ -30,7 +30,7 @@ jobs:
 
       - name: Set up Fly CLI
         run: |
-          curl -L https://github.com/superfly/flyctl/releases/latest/download/flyctl_linux_amd64.tar.gz | tar xzv
+          curl -L https://fly.io/install.sh | sh
           sudo mv flyctl /usr/local/bin/flyctl
           flyctl version
 
