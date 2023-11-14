@@ -6,7 +6,5 @@ app = "criptology"
 [services]
   [[services.ports]]
     handlers = ["http"]
-    port = 9000
-  [[services.ports]]
-    handlers = ["tls"]
-
+    start_port = 8080
+    end_port = 9000
