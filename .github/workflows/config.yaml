@@ -41,6 +41,5 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Deploy to Fly.io
-        run: flyctl deploy --remote-only --no-cache
-      # - name: Deploy to Fly
-      #   run: flyctl deploy -i fly.io/criptology
+        run: |
+          flyctl deploy --remote-only --no-cache
