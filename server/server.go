@@ -76,7 +76,6 @@ func Server() {
         ServeCriprologyStr(w, head)
         ServeCriprologyStr(w, "<h1 class='text-center pt-3 pb-3'>Welcome to Cryptology</h1>")
         ServeCriprologyUint(w, data)
-        ServeCriprologyUint(w, nil)
         // ServeCriprologyUint(w, wiki)
         ServeCriprologyStr(w, footer)
     })
