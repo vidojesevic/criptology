@@ -1,0 +1,12 @@
+app = "criptology"
+
+[build]
+  builder = "heroku/buildpacks:20"
+
+[services]
+  [[services.ports]]
+    handlers = ["http"]
+    port = 9000
+  [[services.ports]]
+    handlers = ["tls"]
+
