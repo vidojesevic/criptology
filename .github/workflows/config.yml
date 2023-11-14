@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,6 +40,8 @@ jobs:
       - name: Set up Fly CLI
         run: |
           flyctl version
-
-      - name: Deploy to Fly
-        run: flyctl deploy -i fly.io/criptology
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+      #
+      # - name: Deploy to Fly
+      #   run: flyctl deploy -i fly.io/criptology
