@@ -2,7 +2,7 @@
     {
         "server": {
             "port": ":9000",
-            "app": "Cryptology"
+            "app": "Criptology"
         },
         "api": {
             "criptoAlpha": "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo",

@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-    "cryptology/logger"
-    "cryptology/datautil"
+    "criptology/logger"
+    "criptology/datautil"
 )
 
 func Hello(message string) string {

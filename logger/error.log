@@ -9,3 +9,7 @@
 [Error] 2023/11/14 16:00:47.886789 logger.go:23: Passing invalid config name
 [Error] 2023/11/14 16:01:41.799401 logger.go:23: Passing invalid config name
 [Error] 2023/11/14 16:01:41.799711 logger.go:23: Passing invalid config name
+[Error] 2023/11/14 17:59:51.834485 logger.go:22: Passing invalid config name
+[Error] 2023/11/14 17:59:51.834650 logger.go:22: Passing invalid config name
+[Error] 2023/11/14 18:00:17.680220 logger.go:22: Passing invalid config name
+[Error] 2023/11/14 18:00:17.680382 logger.go:22: Passing invalid config name

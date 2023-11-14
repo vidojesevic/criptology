@@ -3,7 +3,7 @@ package datautil
 import (
     "os"
     "fmt"
-    "cryptology/logger"
+    "criptology/logger"
     "encoding/json"
 )
 

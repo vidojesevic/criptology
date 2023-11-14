@@ -2,9 +2,9 @@ package main
 
 import (
     "fmt"
-    "cryptology/server"
-    "cryptology/logger"
-    "cryptology/datautil"
+    "criptology/server"
+    "criptology/logger"
+    "criptology/datautil"
 )
 
 func main() {

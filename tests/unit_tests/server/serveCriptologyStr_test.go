@@ -2,7 +2,7 @@ package server
 
 import (
 	"bytes"
-	"cryptology/server"
+	"criptology/server"
 	"log"
 	"net/http"
 	"os"

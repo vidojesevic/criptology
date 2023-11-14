@@ -4,7 +4,6 @@ import (
     "log"
     "os"
     "strings"
-    // "path/filepath"
 )
 
 func WriteErrorLogFile(message string) {
@@ -36,14 +35,6 @@ func WriteAccessLogFile(message string) {
     logger := log.New(logFile, "[Access] ", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
     logger.Println(message)
 }
-
-// func getLogFilePath(logFileName string) string {
-// 	dir, err := os.Getwd()
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	return filepath.Join(dir, "logger", logFileName)
-// }
 
 func OpenLogFile(path string) (*os.File, error) {
     if _, err := os.Stat(path); os.IsNotExist(err) {

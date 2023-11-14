@@ -2,7 +2,7 @@ package datautil
 
 import (
     "testing"
-    "cryptology/datautil"
+    "criptology/datautil"
 )
 
 func TestGetConfig(t *testing.T) {
@@ -28,7 +28,7 @@ func TestGetConfig(t *testing.T) {
         }
     })
     t.Run("Passing app", func(t *testing.T) {
-        appName := "Cryptology"
+        appName := "Criptology"
         app := datautil.GetConfig("app")
         if app != appName {
             t.Errorf("Expected app configuration key to be \"%s\", but got \"%s\"", appName, app)
