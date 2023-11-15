@@ -6,7 +6,7 @@
         },
         "api": {
             "criptoAlpha": "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo",
-            "wikiBTC": "https://en.wikipedia.org/w/api.php?action=parse&page=Bitcoin&format=json"
+            "wiki": "https://en.wikipedia.org/w/api.php?action=parse&page=Bitcoin&format=json"
         }
     }
 ]

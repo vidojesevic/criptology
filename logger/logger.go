@@ -8,12 +8,21 @@ import (
 
 func WriteErrorLogFile(message string) {
     logPath := "logger/error.log"
+    if message == "" {
+        log.Println("Error: there is no message for log file")
+        return
+    }
 
     logFile, err := OpenLogFile(logPath)
     if err != nil {
-        log.Fatal(err)
+        log.Printf("Error: %v", err)
+        return
     }
-    defer logFile.Close()
+    defer func() {
+        if logFile != nil {
+            logFile.Close()
+        }
+    }()
 
     logger := log.New(logFile, "[Error] ", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
     if strings.Contains(message, "%v") {
@@ -37,6 +46,9 @@ func WriteAccessLogFile(message string) {
 }
 
 func OpenLogFile(path string) (*os.File, error) {
+    if path == "" {
+        return nil, nil
+    }
     if _, err := os.Stat(path); os.IsNotExist(err) {
         logFile, err := os.Create(path)
         if err != nil {

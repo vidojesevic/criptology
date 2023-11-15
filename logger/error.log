@@ -1,15 +1,12 @@
-[Error] 2023/11/14 15:01:15.448870 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 15:04:06.241547 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 15:04:31.889391 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 15:05:45.010981 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 15:05:45.011176 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 15:09:32.164653 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 15:09:32.164807 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 16:00:47.886632 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 16:00:47.886789 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 16:01:41.799401 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 16:01:41.799711 logger.go:23: Passing invalid config name
-[Error] 2023/11/14 17:59:51.834485 logger.go:22: Passing invalid config name
-[Error] 2023/11/14 17:59:51.834650 logger.go:22: Passing invalid config name
-[Error] 2023/11/14 18:00:17.680220 logger.go:22: Passing invalid config name
-[Error] 2023/11/14 18:00:17.680382 logger.go:22: Passing invalid config name
+[Error] 2023/11/14 22:23:30.734784 logger.go:31: Passing invalid config name
+[Error] 2023/11/15 21:00:13.133069 logger.go:31: Reflected data is not valid
+[Error] 2023/11/15 21:03:29.102313 logger.go:31: Reflected data From_Currency Code is not valid or nil
+[Error] 2023/11/15 21:55:50.741734 logger.go:31: Cannot parse file web/view/data.html: open web/view/data.html: no such file or directory
+[Error] 2023/11/15 21:57:50.308479 logger.go:31: Cannot parse file web/view/data.html: open web/view/data.html: no such file or directory
+[Error] 2023/11/15 21:57:50.595050 logger.go:31: Cannot parse file web/view/data.html: open web/view/data.html: no such file or directory
+[Error] 2023/11/15 21:58:38.613134 logger.go:31: Cannot parse file web/views/data.html: template: data.html:4: unexpected <.> in operand
+[Error] 2023/11/15 21:58:38.883074 logger.go:31: Cannot parse file web/views/data.html: template: data.html:4: unexpected <.> in operand
+[Error] 2023/11/15 21:59:23.630338 logger.go:31: Passing invalid config name
+[Error] 2023/11/15 22:18:38.994351 logger.go:31: Cannot parse file web/views/data.html: template: data.html:4: unexpected <.> in operand
+[Error] 2023/11/15 23:11:43.941375 logger.go:31: Cannot parse file web/views/data.html: template: data.html:4: unexpected <.> in operand
+[Error] 2023/11/15 23:14:43.059458 logger.go:31: Cannot inject data into view: template: data.html:4:18: executing "data.html" at <.title>: title is an unexported field of struct type server.ViewData

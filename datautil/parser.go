@@ -19,14 +19,14 @@ type ExchangeRate struct {
     } `json:"Realtime Currency Exchange Rate"`
 }
 
-func ParseJsonFromAlpha(data []uint8) (ExchangeRate) {
-    fmt.Println("Parsing some JSON")
+func ParseJsonFromAlpha(data []uint8) (*ExchangeRate, error) {
 
     var exRate ExchangeRate
     err := json.Unmarshal([]byte(data), &exRate)
     if err != nil {
         fmt.Print("Opa")
+        return nil, err
     }
 
-    return exRate
+    return &exRate, nil
 }

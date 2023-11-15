@@ -1,13 +1,21 @@
 package server
 
 import (
+	"criptology/datautil"
+	"criptology/logger"
+    "html/template"
+	"fmt"
 	"io"
+    "reflect"
 	"log"
 	"net/http"
 	"os"
-    "criptology/logger"
-    "criptology/datautil"
 )
+
+type ViewData struct {
+    Title string
+    Content string
+}
 
 func Hello(message string) string {
     return message
@@ -22,19 +30,21 @@ func ReadFile(path string) string {
     return string(body)
 }
 
-func GetDataFromApi(url string) []uint8 {
+func GetDataFromApi(url string) ([]uint8, error) {
     resp, err := http.Get(url)
 
     if err != nil {
         message := `"Unable to get data from source: %v", err`
         logger.WriteErrorLogFile(message)
+        return nil, err
     }
 
     respData, err := io.ReadAll(resp.Body)
     if err != nil {
         log.Fatalf("Unable to read response data: %v", err)
+        return nil, err
     }
-    return respData
+    return respData, nil
 }
 
 func ServeCriprologyStr(w http.ResponseWriter, data string) {
@@ -49,36 +59,85 @@ func ServeCriprologyStr(w http.ResponseWriter, data string) {
     }
 }
 
-func ServeCriprologyUint(w http.ResponseWriter, data []uint8) {
+func ServeCriprologyUint(data []uint8, field string) (*string, error) {
     isDataNil := data == nil
     if isDataNil {
         logger.WriteErrorLogFile("Cannot pass nil value!")
     }
 
-    // fix tomorrow
-    // for _, item := range encoded[0] {
-        // _, err := w.Write([]byte(item))
-        _, err := w.Write([]byte(data))
-        if err != nil {
-            log.Fatalf("Cannot write data to connection: %v", err)
-        }
-    // }
+    dataUint, err := datautil.ParseJsonFromAlpha(data)
+    if err != nil {
+        message := fmt.Sprintf("Cannot parse JSON: %v\n", err)
+        logger.WriteErrorLogFile(message)
+        return nil, err
+    }
+    reflectData := reflect.ValueOf(dataUint.RealtimeCurrencyExchangeRate).FieldByName(field)
+
+    if !reflectData.IsValid() || reflectData.Interface() == "" {
+        mess := fmt.Sprintf("Reflected data %v is not valid or \"\"", field)
+        logger.WriteErrorLogFile(mess)
+        return nil, err
+    }
+
+    resultData := fmt.Sprintf("%v", reflectData.Interface())
+
+    return &resultData, nil
 }
 
-func Server() {
-    port := datautil.GetConfig("port")
-    head := ReadFile("web/views/head.html")
-    footer := ReadFile("web/views/footer.html")
-    data := GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
-    // wiki := GetDataFromApi("https://en.wikipedia.org/w/api.php?action=parse&page=Bitcoin&format=json")
+func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption string, page string) {
+    data, er := GetDataFromApi(link)
+    if er != nil {
+        mes := fmt.Sprintf("Cannot get data from API: %v", er)
+        logger.WriteErrorLogFile(mes)
+    }
+    dataStr, greska := ServeCriprologyUint(data, tip)
+    if greska != nil {
+        mes := fmt.Sprintf("Cannot get data from API: %v", greska)
+        logger.WriteErrorLogFile(mes)
+        return
+    }
+    view := ViewData {
+        Title: caption,
+        Content: *dataStr,
+    }
+    // fmt.Printf("view: %v, %v", view.Title, view.Content)
 
-    http.HandleFunc("/cryptology", func(w http.ResponseWriter, r *http.Request) {
-        ServeCriprologyStr(w, head)
-        ServeCriprologyStr(w, "<h1 class='text-center pt-3 pb-3'>Welcome to Cryptology</h1>")
-        ServeCriprologyUint(w, data)
-        // ServeCriprologyUint(w, wiki)
-        ServeCriprologyStr(w, footer)
-    })
+    tmpl, err := template.ParseFiles(page)
+    if err != nil {
+        mes := fmt.Sprintf("Cannot parse file %v: %v", page, err)
+        logger.WriteErrorLogFile(mes)
+        return
+    }
+    // fmt.Printf("Type of tmpl: %T\n", tmpl)
+
+    erro := tmpl.Execute(w, view)
+    if erro != nil {
+        mess := fmt.Sprintf("Cannot inject data into view: %v", erro)
+        logger.WriteErrorLogFile(mess)
+    }
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    head := ReadFile("web/views/head.html")
+    ServeCriprologyStr(w, head)
+
+    link := datautil.GetLink("crypto")
+    injectDataIntoView(w, link, "FromCurrencyCode", "Currency", "web/views/data.html")
+
+    footer := ReadFile("web/views/footer.html")
+    ServeCriprologyStr(w, footer)
+}
+
+func Server(url string) {
+    port := datautil.GetConfig("port")
+    switch url {
+        case "/":
+            http.HandleFunc(url, handler)
+        case "/data":
+            http.HandleFunc(url, handler)
+        default:
+            fmt.Println("Error 404")
+    }
     err := http.ListenAndServe(port, nil)
     if err != nil {
         log.Fatal(http.ListenAndServe(port, nil))
