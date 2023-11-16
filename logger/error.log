@@ -10,3 +10,5 @@
 [Error] 2023/11/15 22:18:38.994351 logger.go:31: Cannot parse file web/views/data.html: template: data.html:4: unexpected <.> in operand
 [Error] 2023/11/15 23:11:43.941375 logger.go:31: Cannot parse file web/views/data.html: template: data.html:4: unexpected <.> in operand
 [Error] 2023/11/15 23:14:43.059458 logger.go:31: Cannot inject data into view: template: data.html:4:18: executing "data.html" at <.title>: title is an unexported field of struct type server.ViewData
+[Error] 2023/11/16 01:54:55.559016 logger.go:31: Reflected data FromCurrencyCode is not valid or ""
+[Error] 2023/11/16 01:54:56.639082 logger.go:31: Reflected data FromCurrencyCode is not valid or ""

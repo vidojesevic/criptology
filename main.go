@@ -13,10 +13,11 @@ func main() {
     fmt.Print(server.Hello(mes))
     port := datautil.GetConfig("port")
     fmt.Printf("Listening port: %s\n", port)
-
-    // data := server.GetDataFromApi("https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo")
     logger.WriteAccessLogFile("Server succesfully started")
 
+    // serving html
     server.Server("/")
-    server.Server("/data")
+    server.Server("/scripts")
+
+    server.Server("/footer")
 }

@@ -117,27 +117,41 @@ func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption 
     }
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-    head := ReadFile("web/views/head.html")
-    ServeCriprologyStr(w, head)
+func handleIndex(w http.ResponseWriter, r *http.Request) {
+    index := ReadFile("web/index.html")
+    ServeCriprologyStr(w, index)
+}
 
-    link := datautil.GetLink("crypto")
-    injectDataIntoView(w, link, "FromCurrencyCode", "Currency", "web/views/data.html")
-
+func handleFooter(w http.ResponseWriter, r *http.Request) {
     footer := ReadFile("web/views/footer.html")
     ServeCriprologyStr(w, footer)
 }
 
+func handler(w http.ResponseWriter, r *http.Request) {
+    url := r.URL.Path
+    switch url {
+        case "":
+            errorHandler(w, r, http.StatusNotFound)
+        case "/":
+            handleIndex(w, r)
+        case "/data":
+            link := datautil.GetLink("crypto")
+            injectDataIntoView(w, link, "FromCurrencyCode", "Naslov", "web/views/data.html")
+        case "/footer":
+            handleFooter(w, r)
+    }
+}
+
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+    w.WriteHeader(status)
+    if status == http.StatusNotFound {
+        fmt.Fprint(w, "custom 404")
+    }
+}
+
 func Server(url string) {
     port := datautil.GetConfig("port")
-    switch url {
-        case "/":
-            http.HandleFunc(url, handler)
-        case "/data":
-            http.HandleFunc(url, handler)
-        default:
-            fmt.Println("Error 404")
-    }
+    http.HandleFunc(url, handler)
     err := http.ListenAndServe(port, nil)
     if err != nil {
         log.Fatal(http.ListenAndServe(port, nil))
