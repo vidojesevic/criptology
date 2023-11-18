@@ -3,7 +3,10 @@ package logger
 import (
     "log"
     "os"
+    "fmt"
     "strings"
+    "runtime"
+    "path"
 )
 
 func WriteErrorLogFile(message string) {
@@ -24,11 +27,20 @@ func WriteErrorLogFile(message string) {
         }
     }()
 
-    logger := log.New(logFile, "[Error] ", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
+    _, file, line, ok := runtime.Caller(1)
+    if !ok {
+        file = "unknown"
+        line = 0
+    }
+    shortFile := path.Base(file)
+
+    logEntry := fmt.Sprintf("[%s:%d] %s", shortFile, line, message)
+
+    logger := log.New(logFile, "[Error] ", log.LstdFlags | log.Lmicroseconds)
     if strings.Contains(message, "%v") {
-        logger.Printf(message)
+        logger.Printf(logEntry)
     } else {
-        logger.Println(message)
+        logger.Println(logEntry)
     }
 }
 
@@ -41,8 +53,17 @@ func WriteAccessLogFile(message string) {
     }
     defer logFile.Close()
 
-    logger := log.New(logFile, "[Access] ", log.LstdFlags | log.Lshortfile | log.Lmicroseconds)
-    logger.Println(message)
+    _, file, line, ok := runtime.Caller(1)
+    if !ok {
+        file = "unknown"
+        line = 0
+    }
+    shortFile := path.Base(file)
+
+    logEntry := fmt.Sprintf("[%s:%d] %s", shortFile, line, message)
+
+    logger := log.New(logFile, "[Access] ", log.LstdFlags | log.Lmicroseconds)
+    logger.Println(logEntry)
 }
 
 func OpenLogFile(path string) (*os.File, error) {

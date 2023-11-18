@@ -4,6 +4,7 @@ import (
     "fmt"
     "criptology/server"
     "criptology/logger"
+    // "criptology/db"
     "criptology/datautil"
 )
 
@@ -15,9 +16,6 @@ func main() {
     fmt.Printf("Listening port: %s\n", port)
     logger.WriteAccessLogFile("Server succesfully started")
 
-    // serving html
+    // db.EstablishDBConnection()
     server.Server("/")
-    server.Server("/scripts")
-
-    server.Server("/footer")
 }

@@ -15,6 +15,12 @@ import (
 type ViewData struct {
     Title string
     Content string
+    Price string
+}
+
+type WikiData struct {
+    Paragraph1 string
+    Paragraph2 string
 }
 
 func Hello(message string) string {
@@ -59,7 +65,7 @@ func ServeCriprologyStr(w http.ResponseWriter, data string) {
     }
 }
 
-func ServeCriprologyUint(data []uint8, field string) (*string, error) {
+func DataCriprologyUint(data []uint8, field string) (*string, error) {
     isDataNil := data == nil
     if isDataNil {
         logger.WriteErrorLogFile("Cannot pass nil value!")
@@ -84,23 +90,39 @@ func ServeCriprologyUint(data []uint8, field string) (*string, error) {
     return &resultData, nil
 }
 
+func insertWiki(w http.ResponseWriter, link string, page string) {
+    _, err := GetDataFromApi(link)
+    if err != nil {
+        mes := fmt.Sprintf("Cannot parse file %v: %v", page, err)
+        logger.WriteErrorLogFile(mes)
+        return
+    }
+}
+
 func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption string, page string) {
     data, er := GetDataFromApi(link)
     if er != nil {
         mes := fmt.Sprintf("Cannot get data from API: %v", er)
         logger.WriteErrorLogFile(mes)
     }
-    dataStr, greska := ServeCriprologyUint(data, tip)
+    dataStr, greska := DataCriprologyUint(data, tip)
     if greska != nil {
         mes := fmt.Sprintf("Cannot get data from API: %v", greska)
+        logger.WriteErrorLogFile(mes)
+        return
+    }
+    price, danger := DataCriprologyUint(data, "BidPrice") 
+    if danger != nil {
+        mes := fmt.Sprintf("Cannot get data from API: %v", danger)
         logger.WriteErrorLogFile(mes)
         return
     }
     view := ViewData {
         Title: caption,
         Content: *dataStr,
+        Price: *price,
     }
-    // fmt.Printf("view: %v, %v", view.Title, view.Content)
+    // fmt.Printf("view: %v, %v, %v", view.Title, view.Content, view.Price)
 
     tmpl, err := template.ParseFiles(page)
     if err != nil {
@@ -118,13 +140,39 @@ func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption 
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-    index := ReadFile("web/index.html")
+    index := ReadFile("public/index.html")
     ServeCriprologyStr(w, index)
 }
 
-func handleFooter(w http.ResponseWriter, r *http.Request) {
-    footer := ReadFile("web/views/footer.html")
-    ServeCriprologyStr(w, footer)
+func handlePage(w http.ResponseWriter, r *http.Request, page string) {
+    path := "public/views" + page + ".html"
+    view := ReadFile(path)
+    ServeCriprologyStr(w, view)
+}
+
+func handleMessage(w http.ResponseWriter, r *http.Request) {
+    insert := ReadFile("public/views/insert.html")
+    ServeCriprologyStr(w, insert)
+}
+
+func handleImage(w http.ResponseWriter, r *http.Request, img string) {
+    buff, err := os.ReadFile("public" + img)
+    if err != nil {
+        mess := fmt.Sprintf("Cannot read image/img file: %v", err)
+        logger.WriteErrorLogFile(mess)
+    }
+
+    w.Header().Set("Content-type", "image/webp")
+    _, er := w.Write(buff)
+    if er != nil {
+        mess := fmt.Sprintf("Cannot serve image/img file: %v", er)
+        logger.WriteErrorLogFile(mess)
+    }
+}
+
+func loadCSS(w http.ResponseWriter, r *http.Request, style string) {
+    fs := http.FileServer(http.Dir(style))
+    http.Handle(style+"/", http.StripPrefix(style, fs))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -136,9 +184,21 @@ func handler(w http.ResponseWriter, r *http.Request) {
             handleIndex(w, r)
         case "/data":
             link := datautil.GetLink("crypto")
-            injectDataIntoView(w, link, "FromCurrencyCode", "Naslov", "web/views/data.html")
+            injectDataIntoView(w, link, "FromCurrencyCode", "Naslov", "public/views/data.html")
+            wiki := datautil.GetLink("wiki")
+            insertWiki(w, wiki, "public/views/data.html")
         case "/footer":
-            handleFooter(w, r)
+            handlePage(w, r, "/footer")
+        case "/message":
+            handleMessage(w, r)
+        case "/login":
+            handlePage(w, r, "/login")
+        case "/images":
+            handleImage(w, r, "/images/cover.webp")
+        case "/public/css":
+            loadCSS(w, r, "/public/css")
+        default:
+            errorHandler(w, r, 404)
     }
 }
 
