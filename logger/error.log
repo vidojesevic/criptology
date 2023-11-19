@@ -1,0 +1,3 @@
+[Error] 2023/11/19 09:18:52.378090 [server.go:138] Cannot inject data into view: template: data.html:5:38: executing "data.html" at <.Name>: can't evaluate field Name in type server.ViewData
+[Error] 2023/11/19 09:23:06.670418 [server.go:91] Reflected data FromCurrencyCode is not valid or ""
+[Error] 2023/11/19 09:23:06.670548 [server.go:91] Reflected data BidPrice is not valid or ""

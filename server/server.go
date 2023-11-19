@@ -14,8 +14,15 @@ import (
 
 type ViewData struct {
     Title string
-    Content string
+    Name string 
+    FromCurrencyName string
+    ToCurrencyCode string
+    ToCurrencyName string
+    ExchangeRate string
+    LastRefreshed string
+    TimeZone string
     Price string
+    AskPrice string
 }
 
 type WikiData struct {
@@ -119,7 +126,7 @@ func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption 
     }
     view := ViewData {
         Title: caption,
-        Content: *dataStr,
+        Name: *dataStr,
         Price: *price,
     }
     // fmt.Printf("view: %v, %v, %v", view.Title, view.Content, view.Price)
