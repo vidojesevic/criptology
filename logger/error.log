@@ -176,3 +176,5 @@
 [Error] 2023/11/19 08:21:58.981995 [server.go:138] Cannot inject data into view: template: data.html:10:17: executing "data.html" at <.Paragraph1>: can't evaluate field Paragraph1 in type server.ViewData
 [Error] 2023/11/19 08:22:00.009955 [server.go:84] Reflected data FromCurrencyCode is not valid or ""
 [Error] 2023/11/19 08:22:00.010061 [server.go:84] Reflected data BidPrice is not valid or ""
+[Error] 2023/11/19 08:25:49.116327 [server.go:138] Cannot inject data into view: template: data.html:10:17: executing "data.html" at <.Paragraph1>: can't evaluate field Paragraph1 in type server.ViewData
+[Error] 2023/11/19 08:29:37.711598 [server.go:138] Cannot inject data into view: template: data.html:10:17: executing "data.html" at <.Paragraph1>: can't evaluate field Paragraph1 in type server.ViewData
