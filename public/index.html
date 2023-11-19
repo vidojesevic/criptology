@@ -19,11 +19,11 @@
         <script src="https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
-        <link rel="stylesheet" href="public/css/style.css" />
+        <link rel="stylesheet" href="/public/css/style.css" />
     </head>
     <body>
         <main>
-            <div id="#nav" class="bg-dark">
+            <div id="nav" class="bg-dark">
                 <div class="container">
                     <div class="row">
                         <nav
@@ -53,10 +53,9 @@
                     </div>
                 </div>
             </div>
-            <div class="cover container">
+            <div class="container">
                 <div class="row">
-                    <div class="col-12" hx-put="/images">
-                        <img src="/images/cover.webp" class="htmx-indicator" alt="cover"/>
+                    <div class="col-12" id="cover" hx-trigger="load">
                     </div>
                 </div>
             </div>
@@ -89,9 +88,6 @@
             hx-get="/footer">
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script>
-        console.log("Helloo");
-        </script>
-        <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+        <script src="/public/scripts/main.js"></script>
     </body>
 </html>

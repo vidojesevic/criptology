@@ -1,6 +1,4 @@
-* {
-    margin: 0 auto;
-}
-body {
-    background-color: black;
+#cover {
+    background-image: url("/public/images/cover.webp");
+    background-size: cover;
 }

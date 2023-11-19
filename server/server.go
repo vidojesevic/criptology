@@ -97,15 +97,6 @@ func DataCriprologyUint(data []uint8, field string) (*string, error) {
     return &resultData, nil
 }
 
-// func insertWiki(w http.ResponseWriter, link string, page string) {
-//     _, err := GetDataFromApi(link)
-//     if err != nil {
-//         mes := fmt.Sprintf("Cannot parse file %v: %v", page, err)
-//         logger.WriteErrorLogFile(mes)
-//         return
-//     }
-// }
-
 func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption string, page string) {
     data, er := GetDataFromApi(link)
     if er != nil {
@@ -147,8 +138,18 @@ func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption 
 }
 
 func handleIndex(w http.ResponseWriter, r *http.Request) {
-    index := ReadFile("public/index.html")
-    ServeCriprologyStr(w, index)
+    index, err := os.ReadFile("public/index.html")
+    if err != nil {
+        mess := fmt.Sprintf("Cannot load %v: %v", index, err)
+        logger.WriteErrorLogFile(mess)
+    }
+    w.Header().Set("Content-type", "text/html")
+    w.WriteHeader(http.StatusOK)
+    _, er := w.Write(index)
+    if er != nil {
+        mess := fmt.Sprintf("Cannot serve content: %v", er)
+        logger.WriteErrorLogFile(mess)
+    }
 }
 
 func handlePage(w http.ResponseWriter, r *http.Request, page string) {
@@ -163,23 +164,22 @@ func handleMessage(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleImage(w http.ResponseWriter, r *http.Request, img string) {
-    buff, err := os.ReadFile("public" + img)
+    image, err := os.ReadFile(img)
     if err != nil {
-        mess := fmt.Sprintf("Cannot read image/img file: %v", err)
+        mess := fmt.Sprintf("Cannot load %v: %v", image, err)
         logger.WriteErrorLogFile(mess)
     }
-
     w.Header().Set("Content-type", "image/webp")
-    _, er := w.Write(buff)
+    w.WriteHeader(http.StatusOK)
+    _, er := w.Write(image)
     if er != nil {
-        mess := fmt.Sprintf("Cannot serve image/img file: %v", er)
+        mess := fmt.Sprintf("Cannot serve content: %v", er)
         logger.WriteErrorLogFile(mess)
     }
 }
 
-func loadCSS(w http.ResponseWriter, r *http.Request, style string) {
-    fs := http.FileServer(http.Dir(style))
-    http.Handle(style+"/", http.StripPrefix(style, fs))
+func loadStatic(w http.ResponseWriter, r *http.Request, path string) {
+    http.ServeFile(w, r, path)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -192,8 +192,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
         case "/data":
             link := datautil.GetLink("crypto")
             injectDataIntoView(w, link, "FromCurrencyCode", "Naslov", "public/views/data.html")
-            // wiki := datautil.GetLink("wiki")
-            // insertWiki(w, wiki, "public/views/data.html")
         case "/footer":
             handlePage(w, r, "/footer")
         case "/message":
@@ -202,8 +200,12 @@ func handler(w http.ResponseWriter, r *http.Request) {
             handlePage(w, r, "/login")
         case "/images":
             handleImage(w, r, "/images/cover.webp")
-        case "/public/css":
-            loadCSS(w, r, "/public/css")
+        case "/public/css/style.css":
+            loadStatic(w, r, "public/css/style.css")
+        case "/public/scripts/main.js":
+            loadStatic(w, r, "public/scripts/main.js")
+        case "/public/images/cover.webp":
+            handleImage(w, r, "public/images/cover.webp")
         default:
             errorHandler(w, r, 404)
     }
@@ -212,7 +214,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
     w.WriteHeader(status)
     if status == http.StatusNotFound {
-        fmt.Fprint(w, "custom 404")
+        fmt.Fprint(w, "Desi poso sine!")
     }
 }
 

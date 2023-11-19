@@ -16,4 +16,5 @@ func main() {
     logger.WriteAccessLogFile("Server succesfully started")
 
     server.Server("/")
+    server.Server("/public")
 }
