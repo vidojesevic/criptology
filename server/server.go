@@ -90,14 +90,14 @@ func DataCriprologyUint(data []uint8, field string) (*string, error) {
     return &resultData, nil
 }
 
-func insertWiki(w http.ResponseWriter, link string, page string) {
-    _, err := GetDataFromApi(link)
-    if err != nil {
-        mes := fmt.Sprintf("Cannot parse file %v: %v", page, err)
-        logger.WriteErrorLogFile(mes)
-        return
-    }
-}
+// func insertWiki(w http.ResponseWriter, link string, page string) {
+//     _, err := GetDataFromApi(link)
+//     if err != nil {
+//         mes := fmt.Sprintf("Cannot parse file %v: %v", page, err)
+//         logger.WriteErrorLogFile(mes)
+//         return
+//     }
+// }
 
 func injectDataIntoView(w http.ResponseWriter, link string, tip string, caption string, page string) {
     data, er := GetDataFromApi(link)
@@ -185,8 +185,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
         case "/data":
             link := datautil.GetLink("crypto")
             injectDataIntoView(w, link, "FromCurrencyCode", "Naslov", "public/views/data.html")
-            wiki := datautil.GetLink("wiki")
-            insertWiki(w, wiki, "public/views/data.html")
+            // wiki := datautil.GetLink("wiki")
+            // insertWiki(w, wiki, "public/views/data.html")
         case "/footer":
             handlePage(w, r, "/footer")
         case "/message":
